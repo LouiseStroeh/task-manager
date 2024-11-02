@@ -1,0 +1,58 @@
+<div
+  (mouseover)="isEditable = true"
+  (mouseleave)="isEditable = false"
+  class="flex gap-3 items-center w-full py-2 snap-x snap-mandatory max-sm:cursor-grab overflow-x-auto flex-nowrap [&::-webkit-scrollbar]:none [&::-webkit-scrollbar-track]:none [scrollbar-width:none] [-webkit-overflow-scrolling: touch]"
+>
+  <div
+    class="snap-start flex flex-nowrap grow shrink-0 basis-full select-none items-center"
+  >
+    <div class="flex flex-col sm:flex-row grow sm:items-center sm:gap-4">
+      <div class="flex flex-col md:basis-2/3 lg:basis-3/4 gap-y-0.25">
+        <input
+          [(ngModel)]="task.name"
+          class="focus:ring-inset rounded-sm focus:ring-primary-200 focus:ring-opacity-50"
+        />
+
+        <input
+          [(ngModel)]="task.description"
+          placeholder="Add description"
+          class="text-sm focus:ring-inset rounded-sm placeholder:text-gray-400 text-gray-600 focus:ring-primary-200 focus:ring-opacity-50"
+        />
+      </div>
+
+      <p
+        class="select-none text-left text-gray-600 grow text-xs sm:text-center"
+      >
+        Created:
+        <time [dateTime]="task.creationDate">{{ task.creationDate }}</time>
+      </p>
+    </div>
+
+    <app-select
+      [(value)]="task.status"
+      (valueChange)="updateStatus.emit(task)"
+      [options]="statuses"
+      [classes]="{
+        'bg-green-500': task.status === 'completed',
+        'bg-yellow-500': task.status === 'in-progress',
+        'bg-blue-500': task.status === 'todo',
+      }"
+    />
+
+    <app-icon-button
+      *ngIf="isEditable"
+      (onClick)="remove.emit(task)"
+      classes="hidden md:flex absolute right-0 inset-y-0"
+    >
+      <app-icon-trash-can />
+    </app-icon-button>
+  </div>
+
+  <app-button
+    (onClick)="remove.emit(task)"
+    trait="danger"
+    classes="md:hidden snap-start grow shrink-0 basis-1/4"
+  >
+    Delete
+  </app-button>
+</div>
