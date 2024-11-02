@@ -1,0 +1,10 @@
+<select
+  [(ngModel)]="value"
+  (change)="onChange($event)"
+  class="block text-white shrink text-center h-10 rounded-sm p-2 min-w-12 sm:min-w-40 transition-colors focus:ring focus:ring-blue-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50"
+  [class]="classes"
+>
+  <option *ngFor="let option of options" [value]="option.value">
+    {{ option.name }}
+  </option>
+</select>
