@@ -1,0 +1,13 @@
+<button
+  class="rounded-sm h-10 w-full px-5 flex justify-center items-center font-medium text-white shadow-sm transition-all focus:ring disabled:cursor-not-allowed"
+  [class]="classes"
+  [ngClass]="{
+    'bg-blue-500 hover:bg-blue-700 focus:ring-blue-200 disabled:bg-blue-300':
+      trait === 'primary',
+    'bg-red-500 hover:bg-red-700 focus:ring-red-200 disabled:bg-red-300':
+      trait === 'danger'
+  }"
+  (click)="handleClick()"
+>
+  <ng-content></ng-content>
+</button>
